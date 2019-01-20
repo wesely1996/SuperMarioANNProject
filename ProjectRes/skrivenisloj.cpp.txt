@@ -1,0 +1,119 @@
+#include <cstdlib> 
+#include <ctime>
+#include <cmath>
+#include <vector>
+#include <iostream>
+
+// Funkcija podesava dimenzije matrice
+void resizeMatrix(std::vector<std::vector<double>>& M, int p, int q)
+{
+    M.resize(p);
+    for (int i = 0; i < p; i++) {
+        M[i].resize(q);
+    }
+}
+
+int main() 
+{
+    srand(time(NULL));
+
+    // Ulazne vrednosti i parametri
+    int tests = 4, n = 2, m = 4, p = 1, maxiters = 100000;
+    double eta = 0.5, alpha = 0.9;    
+    std::vector<std::vector<double>> x = 
+    	{{0, 0, 0}, {1, 0, 0}, {1, 1, 0}, 
+        {1, 0, 1}, {1, 1, 1}};
+    std::vector<std::vector<double>> y = 
+    	{{0, 0}, {0, 0}, {0, 1}, 
+    	{0, 1}, {0, 0}};
+
+    std::vector<double> h(m + 1), dh(m + 1);    
+    std::vector<std::vector<double>> w_;
+    resizeMatrix(w_, n + 1, m + 1);
+    std::vector<std::vector<double>> dw_;
+    resizeMatrix(dw_, n + 1, m + 1);
+    std::vector<std::vector<double>> w__;
+    resizeMatrix(w__, m + 1, p + 1);
+    std::vector<std::vector<double>> dw__;
+    resizeMatrix(dw__, m + 1, p + 1);
+    std::vector<std::vector<double>> o;
+    resizeMatrix(o, tests + 1, p + 1);
+
+    // Inicijalizacija W'(ij) i deltaW'(ij)
+    for (int j = 1; j <= m; j++) {    
+        for (int i = 0; i <= n; i++) {     
+            dw_[i][j] = 0.0;
+            w_[i][j] = ((double)rand()) / ((double)RAND_MAX) - 0.5;
+        }
+    }
+
+    // Inicijalizacija W''(jk) i deltaW''(jk)
+    for (int k = 1; k <= p; k++) {   
+        for (int j = 0; j <= m; j++) {
+            dw__[j][k] = 0.0;              
+            w__[j][k] = ((double)rand()) / ((double)RAND_MAX) - 0.5;
+        }
+    }
+     
+    // Ucenje
+    for (int iter = 0; iter < maxiters; iter++) 
+    {   
+        // U svakoj iteraciji se bira proizvoljan od moguca 4 ulaza
+        int t = rand() % 4 + 1;
+
+        // Izracunavanje h0, ..., hm
+        h[0] = 1.0;
+        for (int j = 1; j <= m; j++) {   
+            double u = 0;
+            for (int i = 0; i <= n; i++) {
+                u += x[t][i] * w_[i][j];
+            }
+            h[j] = 1.0 / (1.0 + std::exp(-u));
+        }
+
+        // Izracunavanje o1, ..., op
+        for (int k = 1; k <= p; k++) {    
+            double u = 0;
+            for (int j = 0; j <= m; j++) {
+                u += h[j] * w__[j][k];
+            }
+            o[t][k] = 1.0 / (1.0 + std::exp(-u));  
+        }
+
+        // Izracunavanje deltaH(j)
+        for (int j = 1; j <= m; j++) {   
+            dh[j] = 0.0;
+            for (int k = 1; k <= p; k++) {
+                dh[j] += w__[j][k] * (y[t][k] - o[t][k]) 
+                                   * o[t][k] * (1.0 - o[t][k]);
+            }
+        }
+
+        // Azuriranje W'(ij) i deltaW'(ij)
+        for (int j = 1; j <= m; j++) {    
+            for (int i = 0; i <= n; i++) { 
+                dw_[i][j] = eta * x[t][i] * h[j] * (1 - h[j]) * dh[j] 
+                          + alpha * dw_[i][j];
+                w_[i][j] += dw_[i][j];
+            }
+        }
+
+        // Azuriranje W''(jk) i deltaW''(jk)
+        for (int k = 1; k <= p; k++) {   
+            for (int j = 0; j <= m; j++) {
+                dw__[j][k] = eta * h[j] * (y[t][k] - o[t][k]) 
+                                 * o[t][k] * (1.0 - o[t][k]) 
+                           + alpha * dw__[j][k];
+                w__[j][k] += dw__[j][k];
+            }
+        }
+    }
+    
+    // Testiranje
+    for (int i = 1; i <= 4; i++) {
+        std::cout << x[i][1] << " " << x[i][2] << " ";
+        std::cout << y[i][1] << " " << o[i][1] << std::endl;
+    }
+  
+    return 0;
+}
