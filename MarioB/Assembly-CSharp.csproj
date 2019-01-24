@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\End.cs" />
     <Compile Include="Assets\Scripts\Ground.cs" />
     <Compile Include="Assets\Scripts\Manager.cs" />
+    <Compile Include="Assets\Scripts\Mario.cs" />
     <Compile Include="Assets\Scripts\MoveCamera.cs" />
     <Compile Include="Assets\Scripts\Mushrooms.cs" />
     <Compile Include="Assets\Scripts\NeuralNetwork.cs" />

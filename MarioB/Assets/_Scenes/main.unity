@@ -1105,6 +1105,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3222689801553719306}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1618823838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618823837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9bb4587c901e8243b933542fbc53af8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Manager: {fileID: 1873476061}
 --- !u!1 &1717429524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,7 +1347,8 @@ MonoBehaviour:
   marioMoveRight: 1
   marioJump: 1
   marioJumpHeight: -1
-  time: 20
+  t: 0
+  time: 5
   xRangeMin: 0
   xRangeMax: 50
   yRangeMin: -2.8

@@ -13,6 +13,8 @@ public class Manager : MonoBehaviour
 	public bool marioMoveLeft = true, marioMoveRight = true, marioJump = true;
 	public float marioJumpHeight = -1f;
 
+	public float t;//time elapsed
+
 	public float time = 5f;//timer before reset
 	public float xRangeMin = 0f, xRangeMax = 50f, yRangeMin = -2.8f, yRangeMax = 5f;//range of spawning mushrooms
 
@@ -35,16 +37,20 @@ public class Manager : MonoBehaviour
 		marioMoveLeft = true;
 		marioMoveRight = true;
 		marioJump = true;
+		t = 0f;
 	}
 
 	private void Start()
 	{
 		marioOriginalPosition = mario.transform.position;
 		marioStartJumpHight = mario.transform.position.y;
+		t = 0f;
 	}
 
 	private void Update()
 	{
+		InvokeTimer(time);//set a timer for activating Timer function
+
 		if (!isTraning)
 		{
 			if (generationNumber == 0)
@@ -73,7 +79,6 @@ public class Manager : MonoBehaviour
 			generationNumber++;
 
 			isTraning = true;
-			Invoke("Timer", time);//set a timer for activating Timer function
 			CreateMushrooms();
 		} 
 
@@ -126,6 +131,17 @@ public class Manager : MonoBehaviour
 		{
 			marioJump = true;
 
+		}
+	}
+
+	private void InvokeTimer(float timer)
+	{
+		t += Time.deltaTime;
+		Debug.Log(t);
+		if(t >= timer)
+		{
+			Timer();
+			t = 0f;
 		}
 	}
 
