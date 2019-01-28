@@ -699,7 +699,7 @@ PrefabInstance:
     - target: {fileID: 1837300536110174546, guid: 3a67f1742ff5305498dfbf481a00144b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 26.82
+      value: 31.815
       objectReference: {fileID: 0}
     - target: {fileID: 1837300536110174546, guid: 3a67f1742ff5305498dfbf481a00144b,
         type: 3}
@@ -754,7 +754,7 @@ PrefabInstance:
     - target: {fileID: 1837300536110174547, guid: 3a67f1742ff5305498dfbf481a00144b,
         type: 3}
       propertyPath: m_Size.x
-      value: 100
+      value: 170.72388
       objectReference: {fileID: 0}
     - target: {fileID: 1837300536110174545, guid: 3a67f1742ff5305498dfbf481a00144b,
         type: 3}
@@ -1348,6 +1348,7 @@ MonoBehaviour:
   marioJump: 1
   marioJumpHeight: -1
   t: 0
+  mc: 1
   time: 5
   xRangeMin: 0
   xRangeMax: 50
@@ -1600,6 +1601,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: mario
+      objectReference: {fileID: 0}
+    - target: {fileID: 3222689801012476567, guid: ca153e273769bc943a40f84b2bd60d13,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3222689801012476587, guid: ca153e273769bc943a40f84b2bd60d13,
         type: 3}

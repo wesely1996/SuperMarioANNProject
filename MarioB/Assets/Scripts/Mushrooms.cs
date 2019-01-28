@@ -9,7 +9,7 @@ public class Mushrooms : MonoBehaviour
 	private bool initilized = false;
 	private Transform mario;
 
-	private NeuralNetwork net;
+	public NeuralNetwork net;
 	private Rigidbody2D rBody;
 
 	public bool fall = true;

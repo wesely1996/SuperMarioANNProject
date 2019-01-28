@@ -14,8 +14,9 @@ public class Manager : MonoBehaviour
 	public float marioJumpHeight = -1f;
 
 	public float t;//time elapsed
+	public int mc = 1;//mushroom count
 
-	public float time = 5f;//timer before reset
+	public float time = 10f;//timer before reset
 	public float xRangeMin = 0f, xRangeMax = 50f, yRangeMin = -2.8f, yRangeMax = 5f;//range of spawning mushrooms
 
 	private bool isTraning = false;
@@ -38,6 +39,7 @@ public class Manager : MonoBehaviour
 		marioMoveRight = true;
 		marioJump = true;
 		t = 0f;
+		mc = populationSize;
 	}
 
 	private void Start()
@@ -137,8 +139,7 @@ public class Manager : MonoBehaviour
 	private void InvokeTimer(float timer)
 	{
 		t += Time.deltaTime;
-		Debug.Log(t);
-		if(t >= timer)
+		if(t >= timer || mc == 0)
 		{
 			Timer();
 			t = 0f;
