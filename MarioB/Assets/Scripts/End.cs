@@ -34,12 +34,12 @@ public class End : MonoBehaviour
 
 			if (mushroom.transform.position.x < transform.position.x)
 			{
-				mushroom.GetComponent<Mushrooms>().right = 0f;
+				mushroom.GetComponent<Mushrooms>().right = -1f;
 			}
 
 			if (mushroom.transform.position.x > transform.position.x)
 			{
-				mushroom.GetComponent<Mushrooms>().left = 0f;
+				mushroom.GetComponent<Mushrooms>().left = -1f;
 			}
 		}
 	}
