@@ -34,12 +34,14 @@ public class Mushrooms : MonoBehaviour
 	{
 		if (initilized == true)
 		{
-			float distance = Vector2.Distance(transform.position, mario.position);
+			float distanceX = transform.position.x - mario.position.x;
+			float distanceY = transform.position.y - mario.position.y;
 
 			//input that is sent to the ANN
-			float[] inputs = new float[1];
+			float[] inputs = new float[2];
 
-			inputs[0] = distance;
+			inputs[0] = distanceX;
+			inputs[1] = distanceY;
 
 			float[] output = net.FeedForward(inputs);
 

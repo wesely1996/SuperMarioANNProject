@@ -27,7 +27,7 @@ public class Manager : MonoBehaviour
 	private bool isTraning = false;
 	public int populationSize = 20;//number of mushrooms
 	private int generationNumber = 0;//generation count
-	private int[] layers = new int[] { 1, 10, 10, 1 }; //1 input and 1 output, 2 hidden layers of 10 neurons
+	private int[] layers = new int[] { 2, 10, 10, 1 }; //2 input and 1 output, 2 hidden layers of 10 neurons
 	private List<NeuralNetwork> nets;
 	private List<Mushrooms> mushroomList = null;
 	
