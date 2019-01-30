@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Mario : MonoBehaviour
 {
 	public GameObject Manager;
+	public Text text;
 
-	private float mushroomPunishment = -500f;//removed from score for dieing
+	private float mushroomPunishment = -300f;//removed from score for dieing
 	private float mushroomReward = 10000f;//reward for killing Mario
 
 	private void OnCollisionEnter2D(Collision2D collision)
@@ -18,6 +20,7 @@ public class Mario : MonoBehaviour
 				Manager.GetComponent<Manager>().mc--;
 				collision.gameObject.SetActive(false);
 				collision.gameObject.GetComponent<Mushrooms>().net.AddFitness(mushroomPunishment);
+				text.text = Manager.GetComponent<Manager>().mc.ToString();
 			}
 			else
 			{

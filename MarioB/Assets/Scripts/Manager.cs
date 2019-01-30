@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
 	public GameObject mushroomPreFab;
 	public GameObject mario;
 	public GameObject mushroomsBox;
+
+	public Text text;
+	public Text max;
 
 	public float marioJumpSpeed = 5f, marioFallSpeed = 5f, marioMoveSpeed = 3f;
 	public float marioMaxJump = 10f;
@@ -20,7 +25,7 @@ public class Manager : MonoBehaviour
 	public float xRangeMin = 0f, xRangeMax = 50f, yRangeMin = -2.8f, yRangeMax = 5f;//range of spawning mushrooms
 
 	private bool isTraning = false;
-	private int populationSize = 20;//number of mushrooms
+	public int populationSize = 20;//number of mushrooms
 	private int generationNumber = 0;//generation count
 	private int[] layers = new int[] { 1, 10, 10, 1 }; //1 input and 1 output, 2 hidden layers of 10 neurons
 	private List<NeuralNetwork> nets;
@@ -40,13 +45,22 @@ public class Manager : MonoBehaviour
 		marioJump = true;
 		t = 0f;
 		mc = populationSize;
+		text.text = populationSize.ToString();
 	}
 
 	private void Start()
 	{
+		//population must be even, just setting it to 20 incase it's not
+		if (populationSize % 2 != 0)
+		{
+			populationSize++;
+		}
+
 		marioOriginalPosition = mario.transform.position;
 		marioStartJumpHight = mario.transform.position.y;
 		t = 0f;
+		text.text = populationSize.ToString();
+		max.text = "/" + populationSize.ToString();
 	}
 
 	private void Update()
@@ -129,10 +143,15 @@ public class Manager : MonoBehaviour
 			Fall();
 		}
 
-		if(mario.transform.position.y < -2.7)
+		if(mario.transform.position.y <= -2.7)
 		{
 			marioJump = true;
 
+		}
+
+		if (Input.GetKey(KeyCode.Escape))
+		{
+			SceneManager.LoadScene("main");
 		}
 	}
 
@@ -194,11 +213,6 @@ public class Manager : MonoBehaviour
 	//initializing neural netwirks
 	void InitMushroomNeuralNetworks()
 	{
-		//population must be even, just setting it to 20 incase it's not
-		if (populationSize % 2 != 0)
-		{
-			populationSize ++;
-		}
 
 		nets = new List<NeuralNetwork>();
 
